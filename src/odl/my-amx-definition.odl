@@ -1,0 +1,23 @@
+
+%define {
+    %persistent object Person {
+        
+        string name {   
+        }
+
+        string say_my_name();
+
+        event my_event {
+            
+        }
+
+    }
+}
+
+%populate {
+    on event "dm:object-changed" call on_person_changed
+            filter 'object == "Person."';
+
+    on event "my_event" call on_my_event;
+
+}
