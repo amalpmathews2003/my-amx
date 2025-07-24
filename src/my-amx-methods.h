@@ -6,7 +6,11 @@
 #include <amxo/amxo.h>
 #include <amxc/amxc_macros.h>
 
-amxd_status_t _Person_say_my_name(amxd_object_t* greeter,
-                           UNUSED amxd_function_t* func,
-                           amxc_var_t* args,
-                           amxc_var_t* ret);
+amxd_status_t _Person_say_my_name(amxd_object_t *greeter,
+                                  UNUSED amxd_function_t *func,
+                                  amxc_var_t *args,
+                                  amxc_var_t *ret);
+
+void on_my_event2(const char *const event_name,
+                  const amxc_var_t *const event_data,
+                  void *const priv);

@@ -6,30 +6,29 @@
 #include <amxm/amxm.h>
 
 #include "my-amx.h"
+#include "my-amx-methods.h"
 
 static struct _my_amx_app app;
 
-amxd_dm_t* my_amx_get_dm(void) {
+amxd_dm_t *my_amx_get_dm(void)
+{
     return app.dm;
 }
 
-void my_amx_init(amxd_dm_t *dm,amxo_parser_t *parser){
-
-    // amxm_shared_object_t *so = amxm_get_so("self");
-    
-    amxd_object_t *root = amxd_dm_get_root(dm);
-    amxd_object_t *person = amxd_dm_findf(dm, "%s","Person.");
 
 
-    // printf("%s",so->name);
-    printf("%p\n",dm);
-    printf("%p\n",person);
-    
-    app.dm=dm;
-    app.parser=parser;
+void my_amx_init(amxd_dm_t *dm, amxo_parser_t *parser)
+{
+
+    app.dm = dm;
+    app.parser = parser;
+
+    amxb_bus_ctx_t *ctx = amxb_be_who_has("Person.");
+
+    amxb_subscribe(ctx, "Person.",
+                   "notification == 'my_event2' && path == 'Person.'",
+                   on_my_event2, NULL);
 }
-
-
 
 int _my_amx_main(int reason,
                  amxd_dm_t *dm,
@@ -52,4 +51,3 @@ int _my_amx_main(int reason,
 
     return 0;
 }
-

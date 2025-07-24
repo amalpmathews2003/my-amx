@@ -11,6 +11,10 @@
             
         }
 
+        event my_event2 {
+            
+        }
+
     }
 }
 
