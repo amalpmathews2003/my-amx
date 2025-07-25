@@ -10,7 +10,7 @@ define Package/${PKG_NAME}
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=AMX Methods Registration Utility
-	DEPENDS:=+libamxo +libamxs +libamxb +libamxd +libubox +libblobmsg-json +ubus
+	DEPENDS:=+libamxo +libamxs +libamxb +libamxd +libamxrt +libubox +libblobmsg-json +ubus
 endef
 
 define Package/${PKG_NAME}/install

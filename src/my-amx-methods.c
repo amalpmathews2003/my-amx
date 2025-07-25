@@ -20,8 +20,10 @@ void _on_person_changed(const char *const event_name,
     amxc_var_t data;
     amxc_var_init(&data);
     amxc_var_set(cstring_t, &data, "Person data changed");
-
+    // amxd_object_send
     amxd_object_emit_signal(person, "my_event", &data);
+
+    amxc_var_clean(&data);
 }
 
 void _on_person_age_changed(const char *const event_name,

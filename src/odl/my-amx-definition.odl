@@ -9,6 +9,7 @@
 
         string say_my_name();
 
+    
         event my_event {
             
         }

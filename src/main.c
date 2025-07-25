@@ -56,41 +56,30 @@
 
 #define ODL_FILE "/etc/amx/my-amx/odl/my-amx.odl"
 
-int main(int argc, char *arg[])
+int main(int argc, char *argv[])
 {
     int retval = 0;
-    amxd_dm_t dm;
-    amxo_parser_t parser;
+    int index = 0;
+    amxrt_new();
 
-    amxd_dm_init(&dm);
-    amxo_parser_init(&parser);
+    amxc_var_t* config = amxrt_get_config();
+    amxrt_config_init(argc,argv,&index,NULL);
+    amxo_parser_t *parser = amxrt_get_parser();
+    amxd_dm_t *dm = amxrt_get_dm();
 
-    retval = amxo_parser_parse_file(&parser, ODL_FILE, amxd_dm_get_root(&dm));
+    amxrt_config_scan_backend_dirs();
 
-    if (retval != 0)
-    {
-        fprintf(stderr, "Failed to parse ODL file: %s\n", parser.msg.buffer);
-        retval = -1;
-    }
-    else
-    {
-        printf("ODL file parsed successfully.\n");
-    }
-    // retval = amxo_parser_invoke_entry_points(&parser, amxd_dm_get_root(&dm), 0);
-    // if (retval != 0)
-    // {
-    //     fprintf(stderr, "Failed to invoke entry points: %s\n", parser.msg.buffer);
-    //     retval = -1;
-    // }
-    // else
-    // {
-    //     printf("Entry points invoked successfully.\n");
-    // }
+    amxo_parser_parse_file(parser, ODL_FILE, amxd_dm_get_root(dm));
 
-    // amxb_subscribe(&dm, "Person.", "*");
+    amxrt_connect();
 
-    amxo_parser_clean(&parser);
-    amxd_dm_clean(&dm);
+    amxrt_el_create();
+    amxrt_register_or_wait();
+
+    amxrt_el_start();
+
+    amxrt_stop();
+    amxrt_delete();
 
     return retval;
 }

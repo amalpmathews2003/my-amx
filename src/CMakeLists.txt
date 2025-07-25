@@ -9,6 +9,7 @@ set(AMX_LIBRARIES ${STAGING_DIR}/usr/lib/libamxs.so
                   ${STAGING_DIR}/usr/lib/libamxo.so
                   ${STAGING_DIR}/usr/lib/libamxb.so
                   ${STAGING_DIR}/usr/lib/libamxd.so
+                  ${STAGING_DIR}/usr/lib/libamxrt.so
 )  
 
 add_executable(my-amx
