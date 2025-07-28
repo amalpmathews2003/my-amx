@@ -1,5 +1,3 @@
-
-
 %define {
     %persistent object Person {
         
@@ -21,9 +19,7 @@
             default "";
             // on action validate call check_enum [""];
         }
-
-
-
+        bool married_status = False;
     }
 }
 
@@ -36,6 +32,10 @@
 
     // on event "my_event" call on_my_event;   
 
-    on event "dm:object-changed" call on_person_name_change
-            filter 'path == "Person." and contains("parameters.name")';
+    // on event "dm:object-changed" call on_person_name_change
+    //         filter 'path == "Person." and contains("parameters.name")';
+
+    on event "dm:object-changed" call on_married_status_change
+        filter 'path == "Person." and contains("parameters.married_status")';
+
 }

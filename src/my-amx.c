@@ -16,7 +16,16 @@ amxd_dm_t *my_amx_get_dm(void)
     return app.dm;
 }
 
+int custom_married_status_function(UNUSED const char *function_name,
+                                   amxc_var_t *args,
+                                   amxc_var_t *ret)
+{
+    printf("Custom function called with args: %s\n",
+           amxc_var_dyncast(cstring_t, args));
 
+    amxc_var_set(cstring_t, ret, "Custom married status function executed");
+    return 0;
+}
 
 void my_amx_init(amxd_dm_t *dm, amxo_parser_t *parser)
 {
@@ -29,6 +38,15 @@ void my_amx_init(amxd_dm_t *dm, amxo_parser_t *parser)
     amxb_subscribe(ctx, "Person.",
                    "notification == 'my_event2' && path == 'Person.'",
                    on_my_event2, NULL);
+
+    amxm_shared_object_t *so = amxm_so_get_current();
+    amxm_module_t *mod = NULL;
+
+    amxm_module_register(&mod, so, "my-amx");
+    amxm_module_add_function(mod,
+                             "custom_married_status_function",
+                             custom_married_status_function);
+
 }
 
 int _my_amx_main(int reason,

@@ -10,7 +10,7 @@
 #include <debug/sahtrace.h>
 #include <debug/sahtrace_macros.h>
 #include <amxd/amxd_object.h>
-
+#include <amxm/amxm.h>
 
 #define printf(...) fprintf(stderr, __VA_ARGS__)
 
@@ -90,4 +90,30 @@ void _on_person_name_change(const char *const event_name,
     amxd_trans_select_object(&trans, person);
     amxd_trans_set_cstring_t(&trans, "shadow_name", name);
     amxd_trans_apply(&trans, my_amx_get_dm());
+}
+
+
+
+void _on_married_status_change(const char *const event_name,
+                                  const amxc_var_t *const event_data,
+                                  void *const priv)
+{
+    amxd_object_t *person = amxd_dm_findf(my_amx_get_dm(), "%s", "Person.");
+
+    bool married_status = amxd_object_get_value(bool, person, "married_status", NULL);
+    printf("Happy for you, you are %s!\n", married_status ? "married" : "single");
+
+
+    amxc_var_t data,ret;
+    amxc_var_init(&data);
+    amxc_var_set(cstring_t, &data, "married_status changed");
+    amxc_var_init(&ret);
+
+    amxm_shared_object_t *so = amxm_so_get_current();
+    
+    amxm_execute_function(so->name,"my-amx","custom_married_status_function",&data, &ret);
+
+    printf("Function returned: %s\n", amxc_var_dyncast(cstring_t, &ret));
+    amxc_var_clean(&data);
+    amxc_var_clean(&ret);
 }
