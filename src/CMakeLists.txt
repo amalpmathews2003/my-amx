@@ -1,32 +1,25 @@
-cmake_minimum_required(VERSION 3.10)
-project(my-amx C)
+include_directories(${AMX_INCLUDE_DIRS})
 
-set(STAGING_DIR /home/voldermort/amal/prpl/prplos/staging_dir/target-x86_64_musl)
-set(AMX_INCLUDE_DIRS ${STAGING_DIR}/usr/include
-                   
-)
-set(AMX_LIBRARIES ${STAGING_DIR}/usr/lib/libamxs.so
-                  ${STAGING_DIR}/usr/lib/libamxo.so
-                  ${STAGING_DIR}/usr/lib/libamxb.so
-                  ${STAGING_DIR}/usr/lib/libamxd.so
-                  ${STAGING_DIR}/usr/lib/libamxrt.so
-)  
-
-add_executable(my-amx
-            main.c
-    )
-
-target_include_directories(my-amx PRIVATE ${AMX_INCLUDE_DIRS}
-    # ${CMAKE_CURRENT_SOURCE_DIR}/include
-)
+# Main executable
+add_executable(my-amx main.c)
 target_link_libraries(my-amx ${AMX_LIBRARIES})
 
-add_library(my-amxl SHARED my-amx.c 
-    my-amx.h my-amx-methods.c
-    my-amx-methods.h
+
+# Shared library
+add_library(my-amxl SHARED
+    my-amx.c
+    my-amx-methods.c 
+    my-amx-events.c
+    my-amx-actions.c
 )
-target_include_directories(my-amxl PRIVATE ${AMX_INCLUDE_DIRS})
 target_link_libraries(my-amxl ${AMX_LIBRARIES})
+set_target_properties(my-amxl PROPERTIES PREFIX "" OUTPUT_NAME "my-amx")
 
 
-install(TARGETS my-amx DESTINATION bin)
+# Install target for OpenWrt only
+if(DEFINED ENV{STAGING_DIR})
+    install(TARGETS my-amx DESTINATION bin)
+endif()
+
+install(TARGETS my-amx RUNTIME DESTINATION bin)
+install(TARGETS my-amxl LIBRARY DESTINATION lib/amx/my-amx)

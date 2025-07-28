@@ -15,3 +15,6 @@ add_library(
 )
 
 target_link_libraries(mod-custom ${AMX_LIBRARIES})
+set_target_properties(mod-custom PROPERTIES PREFIX "")
+
+install(TARGETS mod-custom LIBRARY DESTINATION lib/amx/my-amx/modules/)

@@ -79,7 +79,7 @@ void _on_person_name_change(const char *const event_name,
                             const amxc_var_t *const event_data,
                             void *const priv)
 {
-    printf("Person name changed\n", event_name);
+    printf("Person name changed %s\n", event_name);
     amxd_object_t *person = amxd_dm_findf(my_amx_get_dm(), "%s", "Person.");
 
     char *name = amxd_object_get_value(cstring_t, person, "name", NULL);
