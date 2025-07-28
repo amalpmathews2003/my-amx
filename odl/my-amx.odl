@@ -12,7 +12,7 @@
 // hello
 
 import "${so-dir}/${so-name}.so" as "${name}";
-include "${name}-definition.odl";
+include "${name}_definition.odl";
 
 %define {
     entry-point my-amx.my_amx_main;

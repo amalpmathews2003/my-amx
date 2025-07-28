@@ -29,3 +29,4 @@ amxd_status_t _Person_say_my_name(amxd_object_t *greeter,
     amxc_var_set(cstring_t, ret, name);
     return amxd_status_ok;
 }
+
