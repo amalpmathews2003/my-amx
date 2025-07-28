@@ -9,6 +9,8 @@
     auto-connect = true;
 }
 
+// hello
+
 import "${so-dir}/${so-name}.so" as "${name}";
 include "${name}-definition.odl";
 

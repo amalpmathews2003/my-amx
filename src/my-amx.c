@@ -7,6 +7,7 @@
 
 #include "my-amx.h"
 #include "my-amx-methods.h"
+#include "my-amx-events.h"
 
 static struct _my_amx_app app;
 
