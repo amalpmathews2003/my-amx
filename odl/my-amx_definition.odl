@@ -20,6 +20,10 @@
             // on action validate call check_enum [""];
         }
         bool married_status = False;
+
+        string education {
+            on action read call read_education;
+        }
     }
 }
 
