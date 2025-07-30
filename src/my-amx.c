@@ -1,16 +1,7 @@
 #include <stdio.h>
-#include <amxc/amxc.h>
-#include <amxp/amxp.h>
-#include <amxd/amxd_dm.h>
-#include <amxo/amxo.h>
-#include <amxm/amxm.h>
-#include <amxm/amxm.h>
 
 #include "my-amx.h"
-#include "my-amx-methods.h"
 #include "my-amx-events.h"
-
-#define printf(...) fprintf(stderr, __VA_ARGS__)
 
 static struct _my_amx_app app;
 
@@ -20,9 +11,9 @@ amxd_dm_t *my_amx_get_dm(void)
 }
 
 
-
 void my_amx_init(amxd_dm_t *dm, amxo_parser_t *parser)
 {
+    SAH_TRACE_ERROR("Initializing AMX application");
 
     app.dm = dm;
     app.parser = parser;

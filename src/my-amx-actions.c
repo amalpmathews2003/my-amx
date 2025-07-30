@@ -1,19 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-#include <amxc/amxc.h>
-#include <amxp/amxp.h>
-#include <amxd/amxd_dm.h>
-#include <amxo/amxo.h>
-#include <amxc/amxc_macros.h>
-#include <amxc/amxc_macros.h>
-#include <amxc/amxc.h>
-#include <amxd/amxd_object_event.h>
-#include <amxd/amxd_transaction.h>
-#include <amxd/amxd_action.h>
-#include <amxd/amxd_object.h>
-
+#include "my-amx.h"
 #include "my-amx-actions.h"
 
 amxd_status_t _read_education(UNUSED amxd_object_t *object,

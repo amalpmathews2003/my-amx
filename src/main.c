@@ -1,10 +1,4 @@
-#include <amxc/amxc.h>
-#include <amxp/amxp.h>
-#include <amxd/amxd_types.h>
-#include <amxd/amxd_dm.h>
-#include <amxo/amxo.h>
-#include <amxs/amxs.h>
-#include <amxrt/amxrt.h>
+#include "main.h"
 
 #define ODL_FILE "/etc/amx/my-amx/my-amx.odl"
 

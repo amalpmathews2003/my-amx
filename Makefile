@@ -14,7 +14,9 @@ define Package/${PKG_NAME}
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=AMX Methods Registration Utility
-	DEPENDS:=+libamxo +libamxs +libamxb +libamxd +libamxrt +libamxm +libubox +libblobmsg-json +ubus
+	DEPENDS:=+libamxo +libamxs +libamxb +libamxd 
+	DEPENDS+=+libamxrt +libamxm +libubox +libblobmsg-json +ubus
+	DEPENDS+=libsahtrace
 endef
 
 define Build/Prepare

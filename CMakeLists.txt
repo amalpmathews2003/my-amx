@@ -18,6 +18,7 @@ if(DEFINED ENV{STAGING_DIR})
         ${STAGING_DIR}/usr/lib/libamxrt.so
         ${STAGING_DIR}/usr/lib/libamxc.so
         ${STAGING_DIR}/usr/lib/libamxm.so
+        ${STAGING_DIR}/lib/libsahtrace.so
     )
 else()
     message(STATUS "Native or Docker build")
@@ -25,7 +26,7 @@ else()
         ${PROJECT_SOURCE_DIR}/include_priv
     )
     set(AMX_LIBRARIES
-        -lamxc -lamxb -lamxrt -lamxo -lamxd -lamxm
+        -lamxc -lamxb -lamxrt -lamxo -lamxd -lamxm -lsahtrace
     )
 endif()
 

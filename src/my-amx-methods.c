@@ -1,15 +1,8 @@
-#include "my-amx-methods.h"
-#include "my-amx.h"
 #include <stdio.h>
 
-#include <amxc/amxc.h>
-#include <amxd/amxd_object_event.h>
-#include <amxd/amxd_transaction.h>
-#include <amxd/amxd_action.h>
-#include <amxd/amxd_object.h>
+#include "my-amx.h"
+#include "my-amx-methods.h"
 
-#include <debug/sahtrace.h>
-#include <debug/sahtrace_macros.h>
 
 amxd_status_t _handle_name_write(amxd_object_t *object, UNUSED amxd_param_t *param,
                                  amxd_action_t reason,

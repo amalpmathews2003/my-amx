@@ -1,16 +1,8 @@
-#include "my-amx-events.h"
 #include <stdio.h>
-#include "my-amx.h"
 
-#include <amxd/amxd_dm.h>
-#include <amxd/amxd_object_event.h>
-#include <amxc/amxc.h>
-#include <amxd/amxd_transaction.h>
-#include <amxd/amxd_action.h>
-#include <debug/sahtrace.h>
-#include <debug/sahtrace_macros.h>
-#include <amxd/amxd_object.h>
-#include <amxm/amxm.h>
+#include "my-amx.h"
+#include "my-amx-events.h"
+
 
 #define printf(...) fprintf(stderr, __VA_ARGS__)
 

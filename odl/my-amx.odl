@@ -1,4 +1,4 @@
-#!/usr/bin/amxrt
+#include "mod_sahtrace.odl";
 
 %config {
     name = my-amx;
@@ -7,6 +7,11 @@
 
     auto-detect = true;
     auto-connect = true;
+
+    sahtrace = {
+        type = "auto",
+        level = 500
+    };
 }
 
 // hello
