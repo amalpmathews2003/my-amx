@@ -14,11 +14,10 @@ amxd_dm_t *my_amx_get_dm(void)
 void my_amx_init(amxd_dm_t *dm, amxo_parser_t *parser)
 {
     SAH_TRACE_ERROR("Initializing AMX application");
-
     app.dm = dm;
     app.parser = parser;
 
-    amxb_bus_ctx_t *ctx = amxb_be_who_has("Person.");
+    amxb_bus_ctx_t *ctx = amxb_be_who_has("Person .");
 
     amxb_subscribe(ctx, "Person.",
                    "notification == 'my_event2' && path == 'Person.'",

@@ -16,7 +16,6 @@ void _on_person_changed(const char *const event_name,
     // printf("Event data: %s\n", data_str ? data_str : "NULL");
 
     amxd_dm_t *dm = my_amx_get_dm();
-    amxd_object_t *root = amxd_dm_get_root(dm);
     amxd_object_t *person = amxd_dm_findf(dm, "%s", "Person.");
 
     amxc_var_t data;

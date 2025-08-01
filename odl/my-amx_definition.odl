@@ -25,6 +25,8 @@
             on action read call read_education;
         }
 
+         %protected void test_rpc();
+
         %protected string am_i_married();
 
         object Organs[]{
@@ -33,6 +35,37 @@
             }
             bool still_kicking = false;
         }
+
+        object LifeEvents{
+
+            object Event[]{
+                string name{
+                    default "";
+                    on action write call write_event_param;
+                }
+                uint16 year{
+                    default 0;
+                    on action write call write_event_param;
+                }
+                string details {
+                    default "";
+                    on action write call write_event_param;
+                }
+
+                on action add-inst call write_event;
+                on action del-inst call delete_event;
+                on action read call read_event;
+            }
+
+            void initLE();
+            void append_event();
+            void retrieve_event();
+            void clearLE();
+            void write_event();
+            void print_events();
+        }
+
+        
     }
 }
 
@@ -48,7 +81,7 @@
     // on event "dm:object-changed" call on_person_name_change
     //         filter 'path == "Person." and contains("parameters.name")';
 
-    on event "dm:object-changed" call on_married_status_change
-        filter 'path == "Person." and contains("parameters.married_status")';
+    // on event "dm:object-changed" call on_married_status_change
+    //     filter 'path == "Person." and contains("parameters.married_status")';
 
 }
