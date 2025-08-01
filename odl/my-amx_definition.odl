@@ -26,6 +26,14 @@
         }
 
         %protected string am_i_married();
+
+        object Organs[]{
+            string kind {
+                on action validate call check_enum 
+                    ["","liver","lungs","heart","kidney"];
+            }
+            bool still_kicking = false;
+        }
     }
 }
 
