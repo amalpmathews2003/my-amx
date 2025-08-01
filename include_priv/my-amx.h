@@ -18,9 +18,6 @@
 #include <debug/sahtrace_macros.h>
 
 
-
-
-
 struct _my_amx_app
 {
     amxd_dm_t *dm;

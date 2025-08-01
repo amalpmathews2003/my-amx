@@ -24,6 +24,8 @@
         string education {
             on action read call read_education;
         }
+
+        %protected string am_i_married();
     }
 }
 

@@ -1,0 +1,8 @@
+
+import "/usr/lib/amx/my-amx/my-amx.so";
+
+%define {
+    object Car{
+      string is_Person_married();
+    }
+}

@@ -5,8 +5,8 @@
     so-dir = "/usr/lib/amx/${name}";
     so-name = "${name}";
 
-    auto-detect = true;
-    auto-connect = true;
+    // auto-detect = true;
+    // auto-connect = true;
 
     sahtrace = {
         type = "auto",

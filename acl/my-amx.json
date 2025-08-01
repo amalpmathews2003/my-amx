@@ -1,0 +1,8 @@
+{
+    "user":"my-amx",
+    "access":{
+        "Person":{
+            "methods":[""]
+        }
+    }
+}
