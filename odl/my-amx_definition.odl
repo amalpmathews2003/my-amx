@@ -28,9 +28,8 @@
         %protected string am_i_married();
 
         object Organs[]{
-            string kind {
-                on action validate call check_enum 
-                    ["","liver","lungs","heart","kidney"];
+            string kind =""{
+                on action validate call check_is_valid_organ;
             }
             bool still_kicking = false;
         }
