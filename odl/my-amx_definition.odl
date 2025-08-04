@@ -41,27 +41,30 @@
             object Event[]{
                 string name{
                     default "";
-                    on action write call write_event_param;
+                    // on action write call write_event_param;
                 }
                 uint16 year{
                     default 0;
-                    on action write call write_event_param;
+                    // on action write call write_event_param;
                 }
                 string details {
                     default "";
-                    on action write call write_event_param;
+                    // on action write call write_event_param;
                 }
 
-                on action add-inst call write_event;
-                on action del-inst call delete_event;
-                on action read call read_event;
+                // on action add-inst call write_event;
+                // on action del-inst call delete_event;
+                // on action read call read_event;
             }
 
             void initLE();
-            void append_event();
-            void retrieve_event();
+            uint16 append_event(%in %mandatory string name,
+                              %in %mandatory int16 year,
+                              %in %mandatory string details
+                            );
+            void retrieve_event(%in %mandatory %strict uint16 index);
             void clearLE();
-            void write_event();
+            // void write_event();
             void print_events();
         }
 
