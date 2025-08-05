@@ -19,6 +19,8 @@
 import "${so-dir}/${so-name}.so" as "${name}";
 include "${name}_definition.odl";
 
+include "cpu.odl";
+
 %define {
     entry-point my-amx.my_amx_main;
 }

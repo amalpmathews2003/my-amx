@@ -1,0 +1,22 @@
+%config {
+    cpu_field_names = {
+        vendor_id = "VendorId",
+        cpu_family = "Family",
+        cpu_MHz = "MHz",
+        model_name = "ModelName",
+        model = "Model",
+        processor = "ID"
+    };
+}
+
+%define {
+
+    object CPUMonitor {
+         %read-only object CPU[] {
+            on action read call cpu_read;
+            // on action list call cpu_list;
+            // on action describe call cpu_describe;
+            // on action destroy call cpu_cleanup;
+        }
+    }
+}
