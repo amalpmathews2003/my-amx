@@ -13,6 +13,7 @@ add_library(my-amxl SHARED
     my-amx-actions.c
     my-amx-rpc.c
     life-events.c
+    htable.c
 )
 target_link_libraries(my-amxl ${AMX_LIBRARIES})
 set_target_properties(my-amxl PROPERTIES PREFIX "" OUTPUT_NAME "my-amx")

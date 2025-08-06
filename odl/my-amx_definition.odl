@@ -68,13 +68,23 @@
             void print_events();
         }
 
-        
+       
     }
+     object Entry[]{
+            string word;
+            string meaning;
+
+            on action add-inst call add_word_instance;
+            // on action read call read_word;
+        }
+        void init_ht();
+        void add_word(%in string word,%in string meaning);
+        void get_meaning(%in string word);
 }
 
 %populate {
-    // on event "dm:object-changed" call on_person_changed
-    //         filter 'object == "Person."';
+    on event "dm:object-changed" call on_person_changed
+            filter 'object == "Person."';
     
     // on event "dm:object-changed" call on_person_age_changed
     //         filter 'path == "Person." and  contains("parameters.age")';
