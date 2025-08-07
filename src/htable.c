@@ -22,7 +22,7 @@ int _init_ht()
 
 int add_word(char *word, char *meaning)
 {
-    entry_t *entry = calloc(1, sizeof(entry_t));
+      entry_t *entry = calloc(1, sizeof(entry_t));
     strcpy(entry->meaning, meaning);
 
     amxc_htable_it_init(&entry->it);
@@ -75,6 +75,28 @@ void _get_meaning(amxd_object_t *object,
     amxc_var_dump(ret, 2);
     //    amxc_var_set(cstring_t,ret,meaning);
 }
+void _display_dict(amxd_object_t *object,
+                  amxd_function_t *func,
+                  amxc_var_t *args,
+                  amxc_var_t *ret)
+{
+    
+    amxc_htable_iterate(it, &dict)
+    {
+        entry_t *entry = amxc_container_of(it, entry_t, it);
+        printf("Word: %s, Meaning: %s\n", it->key, entry->meaning);
+    }
+    printf(".....\n");
+    amxc_htable_for_each(it, &dict)
+    {
+        entry_t *entry = amxc_container_of(it, entry_t, it);
+        printf("Word: %s, Meaning: %s\n", it->key, entry->meaning);
+    }
+
+    printf("Dictionary contents displayed.\n");
+
+}
+
 
 amxd_status_t _add_word_instance(amxd_object_t *object, amxd_param_t *param,
                                  amxd_action_t reason,
@@ -83,7 +105,6 @@ amxd_status_t _add_word_instance(amxd_object_t *object, amxd_param_t *param,
                                  void *priv)
 {
     amxc_var_t *parameters = GET_ARG(args, "parameters");
-
     char *word = GET_CHAR(parameters, "word");
     char *meaning = GET_CHAR(parameters, "meaning");
     printf("Adding word: %s, meaning: %s\n", word, meaning);
@@ -95,15 +116,16 @@ amxd_status_t _add_word_instance(amxd_object_t *object, amxd_param_t *param,
     }
     add_word(word, meaning);
 
-    amxd_action_param_write(object, param, reason, args, retval, priv);
+    amxd_action_object_add_inst(object, param, reason, args, retval, priv);
 
     return amxd_status_ok;
 }
 
-amxd_status_t _read_word(amxd_object_t *object, amxd_param_t *param,
-                         amxd_action_t reason,
-                         const amxc_var_t *const args,
-                         amxc_var_t *const retval,
-                         void *priv)
-{
-}
+// amxd_status_t _read_word(amxd_object_t *object, amxd_param_t *param,
+//                          amxd_action_t reason,
+//                          const amxc_var_t *const args,
+//                          amxc_var_t *const retval,
+//                          void *priv)
+// {
+
+// }

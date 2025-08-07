@@ -70,7 +70,8 @@
 
        
     }
-     object Entry[]{
+    object Dict{
+        object Entry[]{
             string word;
             string meaning;
 
@@ -80,6 +81,8 @@
         void init_ht();
         void add_word(%in string word,%in string meaning);
         void get_meaning(%in string word);
+        void display_dict();    
+     }
 }
 
 %populate {
