@@ -3,20 +3,20 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=my-amx
 PKG_RELEASE:=1
 
-SOURCE_DIR:=~/amal/prpl/custom/my-amx
+SOURCE_DIR:=$(HOME)/amal/prpl/custom/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 CMAKE_OPTIONS+= -DCMAKE_BUILD_TYPE=Debug
 
-define Package/${PKG_NAME}
+define Package/$(PKG_NAME)
+	CATEGORY:=Examples
 	SECTION:=utils
-	CATEGORY:=Utilities
 	TITLE:=AMX Methods Registration Utility
-	DEPENDS:=+libamxo +libamxs +libamxb +libamxd 
-	DEPENDS+=+libamxrt +libamxm +libubox +libblobmsg-json +ubus
-	DEPENDS+=libsahtrace
+	DEPENDS:= libamxo libamxs libamxb libamxd
+	DEPENDS+= libamxrt libamxm libubox libblobmsg-json libubus
+	DEPENDS+= libsahtrace
 endef
 
 define Build/Prepare
@@ -25,16 +25,10 @@ define Build/Prepare
 	$(Build/Patch)
 endef
 
-define Package/${PKG_NAME}/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/${PKG_NAME} $(1)/usr/bin/${PKG_NAME}
-
-	$(INSTALL_DIR) $(1)/etc/amx/${PKG_NAME}
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/odl/* $(1)/etc/amx/${PKG_NAME}
-
-	$(INSTALL_DIR) $(1)/usr/lib/amx/${PKG_NAME}
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/amx/${PKG_NAME}/* $(1)/usr/lib/amx/${PKG_NAME}/
-
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)
+	$(CP) -a $(PKG_INSTALL_DIR)/* $(1)/
 endef
 
-$(eval $(call BuildPackage,${PKG_NAME}))
+$(eval $(call BuildPackage,$(PKG_NAME)))
+

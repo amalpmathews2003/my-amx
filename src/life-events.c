@@ -25,9 +25,9 @@ bool append_event(life_event_t *event)
     return true;
 }
 
-life_event_t *retrieve_event(int index)
+life_event_t *retrieve_event(size_t index)
 {
-    if (index < 0 || index >= amxc_llist_size(&life_events))
+    if (index >= amxc_llist_size(&life_events))
     {
         return NULL; // Index out of bounds
     }
@@ -53,8 +53,8 @@ amxd_status_t _initLE()
     return amxd_status_ok;
 }
 
-amxd_status_t _append_event(amxd_object_t *object,
-                            amxd_function_t *func,
+amxd_status_t _append_event(UNUSED amxd_object_t *object,
+                            UNUSED amxd_function_t *func,
                             amxc_var_t *args,
                             amxc_var_t *ret)
 {
@@ -75,21 +75,21 @@ amxd_status_t _append_event(amxd_object_t *object,
     return status;
 }
 
-amxd_status_t _retrieve_event(amxd_object_t *object,
-                            amxd_function_t *func,
-                            amxc_var_t *args,
-                            amxc_var_t *ret)
+amxd_status_t _retrieve_event(UNUSED amxd_object_t *object,
+                              UNUSED amxd_function_t *func,
+                              amxc_var_t *args,
+                              amxc_var_t *ret)
 {
-    int index = GET_INT32(args, "index");
-    if (index < 0 || index >= amxc_llist_size(&life_events))
+    size_t index = GET_INT32(args, "index");
+    if (index >= amxc_llist_size(&life_events))
     {
-        printf("Index out of bounds: %d\n", index);
+        printf("Index out of bounds: %zu\n", index);
         return amxd_status_unknown_error;
     }
     life_event_t *event = retrieve_event(index);
     if (event == NULL)
     {
-        printf("Failed to retrieve event at index: %d\n", index);
+        printf("Failed to retrieve event at index: %ld\n", index);
         return amxd_status_unknown_error;
     }
     amxc_var_set(cstring_t, ret, event->event_name);
@@ -99,25 +99,24 @@ amxd_status_t _retrieve_event(amxd_object_t *object,
     return amxd_status_ok;
 }
 
-amxd_status_t _print_events(amxd_object_t *object,
-                            amxd_function_t *func,
-                            amxc_var_t *args,
-                            amxc_var_t *ret)
+amxd_status_t _print_events(UNUSED amxd_object_t *object,
+                            UNUSED amxd_function_t *func,
+                            UNUSED amxc_var_t *args,
+                            UNUSED amxc_var_t *ret)
 {
     print_events();
 
     // amxc_array_t arr;
     // amxc_array_init(&arr, amxc_llist_size(&life_events));
 
-
     // amxc_llist_for_each(it, &life_events)
     // {
     //     life_event_t *event = amxc_container_of(it, life_event_t, it);
-        
+
     //     amxc_var_t event_json;
     //     amxc_var_init(&event_json);
     //     amxc_var_set_type(&event_json,AMXC_VAR_ID_HTABLE);
-        
+
     //     amxc_var_add_key(cstring_t, &event_json, "name", event->event_name);
     //     amxc_var_add_key(uint16_t, &event_json, "year", event->year);
     //     amxc_var_add_key(cstring_t, &event_json, "details", event->details);
@@ -163,10 +162,10 @@ amxd_status_t _delete_event(amxd_object_t *object, amxd_param_t *param,
 }
 
 amxd_status_t _read_event(amxd_object_t *object, amxd_param_t *param,
-                          amxd_action_t reason,
+                          UNUSED amxd_action_t reason,
                           const amxc_var_t *const args,
                           amxc_var_t *const retval,
-                          void *priv)
+                          UNUSED void *priv)
 {
 
     amxc_llist_it_t *it = amxc_llist_get_at(&life_events, object->index - 1);
@@ -184,7 +183,7 @@ amxd_status_t _read_event(amxd_object_t *object, amxd_param_t *param,
         else if (param && strcmp(param->name, "details") == 0)
         {
             amxc_var_set(cstring_t, retval, event->details);
-        }    
+        }
     }
     printf("object->index: %d, param->name: %s\n", object->index, param ? param->name : "NULL");
     printf("args: %s\n", args ? amxc_var_dyncast(cstring_t, args) : "NULL");
@@ -194,10 +193,10 @@ amxd_status_t _read_event(amxd_object_t *object, amxd_param_t *param,
 }
 
 amxd_status_t _write_event_param(amxd_object_t *object, amxd_param_t *param,
-                                 amxd_action_t reason,
+                                 UNUSED amxd_action_t reason,
                                  const amxc_var_t *const args,
-                                 amxc_var_t *const retval,
-                                 void *priv)
+                                 UNUSED amxc_var_t *const retval,
+                                 UNUSED void *priv)
 {
 
     amxc_llist_it_t *it = amxc_llist_get_at(&life_events, object->index - 1);
@@ -231,9 +230,9 @@ amxd_status_t _write_event(amxd_object_t *object, amxd_param_t *param,
 {
 
     life_event_t *event = (life_event_t *)calloc(1, sizeof(life_event_t));
-    snprintf(event->event_name, 20, "");
+    snprintf(event->event_name, 20, "test");
     event->year = 0;
-    snprintf(event->details, 50, "");
+    snprintf(event->details, 50, "test");
 
     append_event(event);
 

@@ -20,21 +20,21 @@ int _init_ht()
     return 0;
 }
 
-int add_word(char *word, char *meaning)
+int add_word(const char *word, const char *meaning)
 {
-      entry_t *entry = calloc(1, sizeof(entry_t));
+    entry_t *entry = calloc(1, sizeof(entry_t));
     strcpy(entry->meaning, meaning);
 
     amxc_htable_it_init(&entry->it);
 
     int status = amxc_htable_insert(&dict, word, &entry->it);
     printf("status %d\n", status);
-    printf("capacity %d\n", amxc_htable_capacity(&dict));
-    amxc_htable_it_t *it = amxc_htable_get(&dict, word);
+    printf("capacity %ld\n", amxc_htable_capacity(&dict));
+    // amxc_htable_it_t *it = amxc_htable_get(&dict, word);
     return 0;
 }
 
-char *get_meaning(char *word)
+char *get_meaning(const char *word)
 {
     amxc_htable_it_t *it = amxc_htable_get(&dict, word);
     if (it != NULL)
@@ -43,14 +43,15 @@ char *get_meaning(char *word)
         // printf("%s:%s\n", word, entry->meaning);
         return entry->meaning;
     }
+    return NULL;
 }
-void _add_word(amxd_object_t *object,
-               amxd_function_t *func,
+void _add_word(UNUSED amxd_object_t *object,
+               UNUSED amxd_function_t *func,
                amxc_var_t *args,
-               amxc_var_t *ret)
+               UNUSED amxc_var_t *ret)
 {
-    char *word = GET_CHAR(args, "word");
-    char *meaning = GET_CHAR(args, "meaning");
+    const char *word = GET_CHAR(args, "word");
+    const char *meaning = GET_CHAR(args, "meaning");
     printf("Adding word: %s, meaning: %s\n", word, meaning);
     _init_ht();
     if (!word || !meaning)
@@ -62,25 +63,25 @@ void _add_word(amxd_object_t *object,
     // add_word("carrot", "vegitable");
 }
 
-void _get_meaning(amxd_object_t *object,
-                  amxd_function_t *func,
+void _get_meaning(UNUSED amxd_object_t *object,
+                  UNUSED amxd_function_t *func,
                   amxc_var_t *args,
                   amxc_var_t *ret)
 {
-    char *word = GET_CHAR(args, "word");
-    char *meaning = get_meaning(word);
+    const char *word = GET_CHAR(args, "word");
+    const char *meaning = get_meaning(word);
     amxc_var_set_type(ret, AMXC_VAR_ID_HTABLE);
     amxc_var_add_key(cstring_t, ret, "word", meaning);
 
     amxc_var_dump(ret, 2);
     //    amxc_var_set(cstring_t,ret,meaning);
 }
-void _display_dict(amxd_object_t *object,
-                  amxd_function_t *func,
-                  amxc_var_t *args,
-                  amxc_var_t *ret)
+void _display_dict(UNUSED amxd_object_t *object,
+                   UNUSED amxd_function_t *func,
+                   UNUSED amxc_var_t *args,
+                   UNUSED amxc_var_t *ret)
 {
-    
+
     amxc_htable_iterate(it, &dict)
     {
         entry_t *entry = amxc_container_of(it, entry_t, it);
@@ -94,9 +95,7 @@ void _display_dict(amxd_object_t *object,
     }
 
     printf("Dictionary contents displayed.\n");
-
 }
-
 
 amxd_status_t _add_word_instance(amxd_object_t *object, amxd_param_t *param,
                                  amxd_action_t reason,
@@ -105,8 +104,8 @@ amxd_status_t _add_word_instance(amxd_object_t *object, amxd_param_t *param,
                                  void *priv)
 {
     amxc_var_t *parameters = GET_ARG(args, "parameters");
-    char *word = GET_CHAR(parameters, "word");
-    char *meaning = GET_CHAR(parameters, "meaning");
+    const char *word = GET_CHAR(parameters, "word");
+    const char *meaning = GET_CHAR(parameters, "meaning");
     printf("Adding word: %s, meaning: %s\n", word, meaning);
     _init_ht();
     if (!word || !meaning)

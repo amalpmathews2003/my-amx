@@ -3,6 +3,8 @@
 #include "my-amx.h"
 #include "my-amx-events.h"
 
+#define ME "my-amx"
+
 static struct _my_amx_app app;
 
 amxd_dm_t *my_amx_get_dm(void)

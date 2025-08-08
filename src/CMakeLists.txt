@@ -1,12 +1,8 @@
-include_directories(${AMX_INCLUDE_DIRS})
-
 # Main executable
-add_executable(my-amx main.c)
-target_link_libraries(my-amx ${AMX_LIBRARIES})
+add_executable(${PROJECT_NAME} main.c)
 
 
-# Shared library
-add_library(my-amxl SHARED
+set(SOURCES
     my-amx.c
     my-amx-methods.c 
     my-amx-events.c
@@ -15,14 +11,16 @@ add_library(my-amxl SHARED
     life-events.c
     htable.c
 )
-target_link_libraries(my-amxl ${AMX_LIBRARIES})
-set_target_properties(my-amxl PROPERTIES PREFIX "" OUTPUT_NAME "my-amx")
+
+set(LIB_NAME "${PROJECT_NAME}_shared")
 
 
-# Install target for OpenWrt only
-if(DEFINED ENV{STAGING_DIR})
-    install(TARGETS my-amx DESTINATION bin)
-endif()
+add_library(${LIB_NAME} SHARED ${SOURCES})
+set_target_properties(${LIB_NAME} PROPERTIES 
+    PREFIX "" 
+    OUTPUT_NAME ${PROJECT_NAME}
+)
 
-install(TARGETS my-amx RUNTIME DESTINATION bin)
-install(TARGETS my-amxl LIBRARY DESTINATION lib/amx/my-amx)
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+install(TARGETS ${LIB_NAME} LIBRARY DESTINATION lib/amx/${PROJECT_NAME})

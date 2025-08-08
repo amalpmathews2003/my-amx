@@ -17,7 +17,7 @@
 
 amxd_status_t _test_rpc(UNUSED amxd_object_t *obj,
                         UNUSED amxd_function_t *func, 
-                        amxc_var_t *args, amxc_var_t *ret)
+                        UNUSED amxc_var_t *args, amxc_var_t *ret)
 {
     amxd_status_t status = amxd_status_ok;
 

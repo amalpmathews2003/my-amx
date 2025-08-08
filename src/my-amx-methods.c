@@ -22,9 +22,9 @@ amxd_status_t _handle_name_write(amxd_object_t *object, UNUSED amxd_param_t *par
 //     return amxd_status_ok;
 // }
 
-amxd_status_t _say_my_name(amxd_object_t *greeter,
+amxd_status_t _say_my_name(UNUSED amxd_object_t *greeter,
                            UNUSED amxd_function_t *func,
-                           amxc_var_t *args,
+                           UNUSED amxc_var_t *args,
                            amxc_var_t *ret)
 {
     char *name = "Amal";
@@ -55,7 +55,6 @@ amxd_status_t _Car_is_Person_married(UNUSED amxd_object_t *object,
     amxb_bus_ctx_t *ctx = amxb_be_who_has("Person.");
 
     amxb_call(ctx, "Person.", "am_i_married", NULL, ret, 1000);
-
 
     return amxd_status_ok;
 }

@@ -9,7 +9,7 @@
 
 amxd_status_t _read_education(UNUSED amxd_object_t *object,
                               UNUSED amxd_param_t *param,
-                              amxd_action_t reason,
+                              UNUSED amxd_action_t reason,
                               UNUSED const amxc_var_t *const args,
                               amxc_var_t *const retval,
                               UNUSED void *priv)
@@ -45,9 +45,9 @@ int stricmp(const char *s1, const char *s2) {
 }
 
 
-amxd_status_t _check_is_valid_organ(amxd_object_t *object, amxd_path_t *param,
-                                    amxd_action_t reason, const amxc_var_t *const args,
-                                    amxc_var_t *const retval, UNUSED void *priv)
+amxd_status_t _check_is_valid_organ(UNUSED amxd_object_t *object,UNUSED amxd_path_t *param,
+                                    UNUSED amxd_action_t reason, const amxc_var_t *const args,
+                                    UNUSED amxc_var_t *const retval, UNUSED void *priv)
 {
    
     const char* organ = amxc_var_constcast(cstring_t, args);
